@@ -79,8 +79,9 @@ public class Application {
         };
         ScheduledExecutorService service = Executors
                 .newSingleThreadScheduledExecutor();
+
         // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
-        service.scheduleAtFixedRate(tcPrizeSchedule, 1, 60, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(tcPrizeSchedule, 1, 120, TimeUnit.SECONDS);
 
         logger.info("SpringBoot Start Success!");
     }
