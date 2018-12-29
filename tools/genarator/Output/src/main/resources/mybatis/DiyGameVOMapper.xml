@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxm.spider.mapper.DiyGameVODAO" >
+  <resultMap id="BaseResultMap" type="com.zxm.spider.model.DiyGameVO" >
+    <id column="basicId" property="basicid" jdbcType="INTEGER" />
+    <result column="host" property="host" jdbcType="VARCHAR" />
+    <result column="guest" property="guest" jdbcType="VARCHAR" />
+    <result column="gametime" property="gametime" jdbcType="VARCHAR" />
+    <result column="gametype" property="gametype" jdbcType="VARCHAR" />
+    <result column="ishot" property="ishot" jdbcType="VARCHAR" />
+    <result column="livetitle" property="livetitle" jdbcType="VARCHAR" />
+    <result column="hostpic" property="hostpic" jdbcType="VARCHAR" />
+    <result column="guestpic" property="guestpic" jdbcType="VARCHAR" />
+    <result column="gamestate" property="gamestate" jdbcType="VARCHAR" />
+    <result column="linkone" property="linkone" jdbcType="VARCHAR" />
+    <result column="linktwo" property="linktwo" jdbcType="VARCHAR" />
+    <result column="linkthree" property="linkthree" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    basicId, host, guest, gametime, gametype, ishot, livetitle, hostpic, guestpic, gamestate, 
+    linkone, linktwo, linkthree
+  </sql>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.zxm.spider.model.DiyGameVOCondition" >
+    <include refid="PAGINATION.MYSQL_paginationStart" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mdiy_t_game_50
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="PAGINATION.MYSQL_paginationEnd" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mdiy_t_game_50
+    where basicId = #{basicid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mdiy_t_game_50
+    where basicId = #{basicid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByCondition" parameterType="com.zxm.spider.model.DiyGameVOCondition" >
+    delete from mdiy_t_game_50
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxm.spider.model.DiyGameVO" >
+    insert into mdiy_t_game_50 (basicId, host, guest, 
+      gametime, gametype, ishot, 
+      livetitle, hostpic, guestpic, 
+      gamestate, linkone, linktwo, 
+      linkthree)
+    values (#{basicid,jdbcType=INTEGER}, #{host,jdbcType=VARCHAR}, #{guest,jdbcType=VARCHAR}, 
+      #{gametime,jdbcType=VARCHAR}, #{gametype,jdbcType=VARCHAR}, #{ishot,jdbcType=VARCHAR}, 
+      #{livetitle,jdbcType=VARCHAR}, #{hostpic,jdbcType=VARCHAR}, #{guestpic,jdbcType=VARCHAR}, 
+      #{gamestate,jdbcType=VARCHAR}, #{linkone,jdbcType=VARCHAR}, #{linktwo,jdbcType=VARCHAR}, 
+      #{linkthree,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxm.spider.model.DiyGameVO" >
+    insert into mdiy_t_game_50
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="basicid != null" >
+        basicId,
+      </if>
+      <if test="host != null" >
+        host,
+      </if>
+      <if test="guest != null" >
+        guest,
+      </if>
+      <if test="gametime != null" >
+        gametime,
+      </if>
+      <if test="gametype != null" >
+        gametype,
+      </if>
+      <if test="ishot != null" >
+        ishot,
+      </if>
+      <if test="livetitle != null" >
+        livetitle,
+      </if>
+      <if test="hostpic != null" >
+        hostpic,
+      </if>
+      <if test="guestpic != null" >
+        guestpic,
+      </if>
+      <if test="gamestate != null" >
+        gamestate,
+      </if>
+      <if test="linkone != null" >
+        linkone,
+      </if>
+      <if test="linktwo != null" >
+        linktwo,
+      </if>
+      <if test="linkthree != null" >
+        linkthree,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="basicid != null" >
+        #{basicid,jdbcType=INTEGER},
+      </if>
+      <if test="host != null" >
+        #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="guest != null" >
+        #{guest,jdbcType=VARCHAR},
+      </if>
+      <if test="gametime != null" >
+        #{gametime,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="ishot != null" >
+        #{ishot,jdbcType=VARCHAR},
+      </if>
+      <if test="livetitle != null" >
+        #{livetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hostpic != null" >
+        #{hostpic,jdbcType=VARCHAR},
+      </if>
+      <if test="guestpic != null" >
+        #{guestpic,jdbcType=VARCHAR},
+      </if>
+      <if test="gamestate != null" >
+        #{gamestate,jdbcType=VARCHAR},
+      </if>
+      <if test="linkone != null" >
+        #{linkone,jdbcType=VARCHAR},
+      </if>
+      <if test="linktwo != null" >
+        #{linktwo,jdbcType=VARCHAR},
+      </if>
+      <if test="linkthree != null" >
+        #{linkthree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByCondition" parameterType="com.zxm.spider.model.DiyGameVOCondition" resultType="java.lang.Integer" >
+    select count(*) from mdiy_t_game_50
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByConditionSelective" parameterType="map" >
+    update mdiy_t_game_50
+    <set >
+      <if test="record.basicid != null" >
+        basicId = #{record.basicid,jdbcType=INTEGER},
+      </if>
+      <if test="record.host != null" >
+        host = #{record.host,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guest != null" >
+        guest = #{record.guest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gametime != null" >
+        gametime = #{record.gametime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gametype != null" >
+        gametype = #{record.gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ishot != null" >
+        ishot = #{record.ishot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.livetitle != null" >
+        livetitle = #{record.livetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostpic != null" >
+        hostpic = #{record.hostpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guestpic != null" >
+        guestpic = #{record.guestpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gamestate != null" >
+        gamestate = #{record.gamestate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkone != null" >
+        linkone = #{record.linkone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linktwo != null" >
+        linktwo = #{record.linktwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkthree != null" >
+        linkthree = #{record.linkthree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByCondition" parameterType="map" >
+    update mdiy_t_game_50
+    set basicId = #{record.basicid,jdbcType=INTEGER},
+      host = #{record.host,jdbcType=VARCHAR},
+      guest = #{record.guest,jdbcType=VARCHAR},
+      gametime = #{record.gametime,jdbcType=VARCHAR},
+      gametype = #{record.gametype,jdbcType=VARCHAR},
+      ishot = #{record.ishot,jdbcType=VARCHAR},
+      livetitle = #{record.livetitle,jdbcType=VARCHAR},
+      hostpic = #{record.hostpic,jdbcType=VARCHAR},
+      guestpic = #{record.guestpic,jdbcType=VARCHAR},
+      gamestate = #{record.gamestate,jdbcType=VARCHAR},
+      linkone = #{record.linkone,jdbcType=VARCHAR},
+      linktwo = #{record.linktwo,jdbcType=VARCHAR},
+      linkthree = #{record.linkthree,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxm.spider.model.DiyGameVO" >
+    update mdiy_t_game_50
+    <set >
+      <if test="host != null" >
+        host = #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="guest != null" >
+        guest = #{guest,jdbcType=VARCHAR},
+      </if>
+      <if test="gametime != null" >
+        gametime = #{gametime,jdbcType=VARCHAR},
+      </if>
+      <if test="gametype != null" >
+        gametype = #{gametype,jdbcType=VARCHAR},
+      </if>
+      <if test="ishot != null" >
+        ishot = #{ishot,jdbcType=VARCHAR},
+      </if>
+      <if test="livetitle != null" >
+        livetitle = #{livetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hostpic != null" >
+        hostpic = #{hostpic,jdbcType=VARCHAR},
+      </if>
+      <if test="guestpic != null" >
+        guestpic = #{guestpic,jdbcType=VARCHAR},
+      </if>
+      <if test="gamestate != null" >
+        gamestate = #{gamestate,jdbcType=VARCHAR},
+      </if>
+      <if test="linkone != null" >
+        linkone = #{linkone,jdbcType=VARCHAR},
+      </if>
+      <if test="linktwo != null" >
+        linktwo = #{linktwo,jdbcType=VARCHAR},
+      </if>
+      <if test="linkthree != null" >
+        linkthree = #{linkthree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where basicId = #{basicid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxm.spider.model.DiyGameVO" >
+    update mdiy_t_game_50
+    set host = #{host,jdbcType=VARCHAR},
+      guest = #{guest,jdbcType=VARCHAR},
+      gametime = #{gametime,jdbcType=VARCHAR},
+      gametype = #{gametype,jdbcType=VARCHAR},
+      ishot = #{ishot,jdbcType=VARCHAR},
+      livetitle = #{livetitle,jdbcType=VARCHAR},
+      hostpic = #{hostpic,jdbcType=VARCHAR},
+      guestpic = #{guestpic,jdbcType=VARCHAR},
+      gamestate = #{gamestate,jdbcType=VARCHAR},
+      linkone = #{linkone,jdbcType=VARCHAR},
+      linktwo = #{linktwo,jdbcType=VARCHAR},
+      linkthree = #{linkthree,jdbcType=VARCHAR}
+    where basicId = #{basicid,jdbcType=INTEGER}
+  </update>
+</mapper>
