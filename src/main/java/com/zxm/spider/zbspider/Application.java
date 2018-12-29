@@ -2,6 +2,7 @@ package com.zxm.spider.zbspider;
 import com.zxm.spider.mapper.DiyGameVODAO;
 import com.zxm.spider.model.DiyGameVO;
 import com.zxm.spider.model.DiyGameVOCondition;
+import com.zxm.spider.webmagic.LeqiubaProcessor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -24,6 +25,9 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 @EnableAutoConfiguration
@@ -65,12 +69,19 @@ public class Application {
      */
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-        DiyGameVODAO diyGameVODAO = (DiyGameVODAO)context.getBean("diyGameVODAO");
 
-        DiyGameVOCondition condition = new DiyGameVOCondition();
-        condition.createCriteria().andBasicidEqualTo(223);
-        List<DiyGameVO> list = diyGameVODAO.selectByCondition(condition);
+        LeqiubaProcessor leqiubaProcessor = (com.zxm.spider.webmagic.LeqiubaProcessor)context.getBean("leqiubaProcessor");
 
-        logger.info("SpringBoot Start Success,list size:" + list.get(0).getHost() );
+        Runnable tcPrizeSchedule = new Runnable() {
+            public void run() {
+                leqiubaProcessor.generate();
+            }
+        };
+        ScheduledExecutorService service = Executors
+                .newSingleThreadScheduledExecutor();
+        // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
+        service.scheduleAtFixedRate(tcPrizeSchedule, 1, 60, TimeUnit.SECONDS);
+
+        logger.info("SpringBoot Start Success!");
     }
 }

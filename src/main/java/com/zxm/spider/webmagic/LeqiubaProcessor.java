@@ -1,13 +1,18 @@
 package com.zxm.spider.webmagic;
 
 
+import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
+@Service
 public class LeqiubaProcessor implements PageProcessor {
 
     public static final String URL_LIST = "https://leqiuba.com/";
@@ -45,7 +50,7 @@ public class LeqiubaProcessor implements PageProcessor {
         return site;
     }
 
-    public static void main(String[] args) {
+    public void generate() {
         Spider.create(new LeqiubaProcessor()).addUrl("https://leqiuba.com/")
                 .run();
     }
