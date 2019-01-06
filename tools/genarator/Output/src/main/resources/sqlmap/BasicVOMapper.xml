@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxm.spider.mapper.BasicVODAO" >
+  <resultMap id="BaseResultMap" type="com.zxm.spider.model.BasicVO" >
+    <id column="basic_id" property="basicId" jdbcType="INTEGER" />
+    <result column="basic_title" property="basicTitle" jdbcType="VARCHAR" />
+    <result column="basic_thumbnails" property="basicThumbnails" jdbcType="VARCHAR" />
+    <result column="basic_hit" property="basicHit" jdbcType="BIGINT" />
+    <result column="basic_sort" property="basicSort" jdbcType="INTEGER" />
+    <result column="basic_datetime" property="basicDatetime" jdbcType="TIMESTAMP" />
+    <result column="basic_updatetime" property="basicUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="basic_peopleid" property="basicPeopleid" jdbcType="INTEGER" />
+    <result column="basic_categoryid" property="basicCategoryid" jdbcType="INTEGER" />
+    <result column="basic_appid" property="basicAppid" jdbcType="INTEGER" />
+    <result column="basic_modelid" property="basicModelid" jdbcType="INTEGER" />
+    <result column="basic_comment" property="basicComment" jdbcType="INTEGER" />
+    <result column="basic_collect" property="basicCollect" jdbcType="INTEGER" />
+    <result column="basic_share" property="basicShare" jdbcType="INTEGER" />
+    <result column="basic_type" property="basicType" jdbcType="VARCHAR" />
+    <result column="basic_display" property="basicDisplay" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zxm.spider.model.BasicVO" extends="BaseResultMap" >
+    <result column="basic_description" property="basicDescription" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    basic_id, basic_title, basic_thumbnails, basic_hit, basic_sort, basic_datetime, basic_updatetime, 
+    basic_peopleid, basic_categoryid, basic_appid, basic_modelid, basic_comment, basic_collect, 
+    basic_share, basic_type, basic_display
+  </sql>
+  <sql id="Blob_Column_List" >
+    basic_description
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zxm.spider.model.BasicVOCondition" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.zxm.spider.model.BasicVOCondition" >
+    <include refid="PAGINATION.MYSQL_paginationStart" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="PAGINATION.MYSQL_paginationEnd" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from basic
+    where basic_id = #{basicId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from basic
+    where basic_id = #{basicId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxm.spider.model.BasicVO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="basicId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into basic (basic_title, basic_thumbnails, basic_hit, 
+      basic_sort, basic_datetime, basic_updatetime, 
+      basic_peopleid, basic_categoryid, basic_appid, 
+      basic_modelid, basic_comment, basic_collect, 
+      basic_share, basic_type, basic_display, 
+      basic_description)
+    values (#{basicTitle,jdbcType=VARCHAR}, #{basicThumbnails,jdbcType=VARCHAR}, #{basicHit,jdbcType=BIGINT}, 
+      #{basicSort,jdbcType=INTEGER}, #{basicDatetime,jdbcType=TIMESTAMP}, #{basicUpdatetime,jdbcType=TIMESTAMP}, 
+      #{basicPeopleid,jdbcType=INTEGER}, #{basicCategoryid,jdbcType=INTEGER}, #{basicAppid,jdbcType=INTEGER}, 
+      #{basicModelid,jdbcType=INTEGER}, #{basicComment,jdbcType=INTEGER}, #{basicCollect,jdbcType=INTEGER}, 
+      #{basicShare,jdbcType=INTEGER}, #{basicType,jdbcType=VARCHAR}, #{basicDisplay,jdbcType=INTEGER}, 
+      #{basicDescription,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxm.spider.model.BasicVO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="basicId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into basic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="basicTitle != null" >
+        basic_title,
+      </if>
+      <if test="basicThumbnails != null" >
+        basic_thumbnails,
+      </if>
+      <if test="basicHit != null" >
+        basic_hit,
+      </if>
+      <if test="basicSort != null" >
+        basic_sort,
+      </if>
+      <if test="basicDatetime != null" >
+        basic_datetime,
+      </if>
+      <if test="basicUpdatetime != null" >
+        basic_updatetime,
+      </if>
+      <if test="basicPeopleid != null" >
+        basic_peopleid,
+      </if>
+      <if test="basicCategoryid != null" >
+        basic_categoryid,
+      </if>
+      <if test="basicAppid != null" >
+        basic_appid,
+      </if>
+      <if test="basicModelid != null" >
+        basic_modelid,
+      </if>
+      <if test="basicComment != null" >
+        basic_comment,
+      </if>
+      <if test="basicCollect != null" >
+        basic_collect,
+      </if>
+      <if test="basicShare != null" >
+        basic_share,
+      </if>
+      <if test="basicType != null" >
+        basic_type,
+      </if>
+      <if test="basicDisplay != null" >
+        basic_display,
+      </if>
+      <if test="basicDescription != null" >
+        basic_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="basicTitle != null" >
+        #{basicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="basicThumbnails != null" >
+        #{basicThumbnails,jdbcType=VARCHAR},
+      </if>
+      <if test="basicHit != null" >
+        #{basicHit,jdbcType=BIGINT},
+      </if>
+      <if test="basicSort != null" >
+        #{basicSort,jdbcType=INTEGER},
+      </if>
+      <if test="basicDatetime != null" >
+        #{basicDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="basicUpdatetime != null" >
+        #{basicUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="basicPeopleid != null" >
+        #{basicPeopleid,jdbcType=INTEGER},
+      </if>
+      <if test="basicCategoryid != null" >
+        #{basicCategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="basicAppid != null" >
+        #{basicAppid,jdbcType=INTEGER},
+      </if>
+      <if test="basicModelid != null" >
+        #{basicModelid,jdbcType=INTEGER},
+      </if>
+      <if test="basicComment != null" >
+        #{basicComment,jdbcType=INTEGER},
+      </if>
+      <if test="basicCollect != null" >
+        #{basicCollect,jdbcType=INTEGER},
+      </if>
+      <if test="basicShare != null" >
+        #{basicShare,jdbcType=INTEGER},
+      </if>
+      <if test="basicType != null" >
+        #{basicType,jdbcType=VARCHAR},
+      </if>
+      <if test="basicDisplay != null" >
+        #{basicDisplay,jdbcType=INTEGER},
+      </if>
+      <if test="basicDescription != null" >
+        #{basicDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByCondition" parameterType="com.zxm.spider.model.BasicVOCondition" resultType="java.lang.Integer" >
+    select count(*) from basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByConditionSelective" parameterType="map" >
+    update basic
+    <set >
+      <if test="record.basicId != null" >
+        basic_id = #{record.basicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicTitle != null" >
+        basic_title = #{record.basicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basicThumbnails != null" >
+        basic_thumbnails = #{record.basicThumbnails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basicHit != null" >
+        basic_hit = #{record.basicHit,jdbcType=BIGINT},
+      </if>
+      <if test="record.basicSort != null" >
+        basic_sort = #{record.basicSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicDatetime != null" >
+        basic_datetime = #{record.basicDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.basicUpdatetime != null" >
+        basic_updatetime = #{record.basicUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.basicPeopleid != null" >
+        basic_peopleid = #{record.basicPeopleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicCategoryid != null" >
+        basic_categoryid = #{record.basicCategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicAppid != null" >
+        basic_appid = #{record.basicAppid,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicModelid != null" >
+        basic_modelid = #{record.basicModelid,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicComment != null" >
+        basic_comment = #{record.basicComment,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicCollect != null" >
+        basic_collect = #{record.basicCollect,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicShare != null" >
+        basic_share = #{record.basicShare,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicType != null" >
+        basic_type = #{record.basicType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basicDisplay != null" >
+        basic_display = #{record.basicDisplay,jdbcType=INTEGER},
+      </if>
+      <if test="record.basicDescription != null" >
+        basic_description = #{record.basicDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update basic
+    set basic_id = #{record.basicId,jdbcType=INTEGER},
+      basic_title = #{record.basicTitle,jdbcType=VARCHAR},
+      basic_thumbnails = #{record.basicThumbnails,jdbcType=VARCHAR},
+      basic_hit = #{record.basicHit,jdbcType=BIGINT},
+      basic_sort = #{record.basicSort,jdbcType=INTEGER},
+      basic_datetime = #{record.basicDatetime,jdbcType=TIMESTAMP},
+      basic_updatetime = #{record.basicUpdatetime,jdbcType=TIMESTAMP},
+      basic_peopleid = #{record.basicPeopleid,jdbcType=INTEGER},
+      basic_categoryid = #{record.basicCategoryid,jdbcType=INTEGER},
+      basic_appid = #{record.basicAppid,jdbcType=INTEGER},
+      basic_modelid = #{record.basicModelid,jdbcType=INTEGER},
+      basic_comment = #{record.basicComment,jdbcType=INTEGER},
+      basic_collect = #{record.basicCollect,jdbcType=INTEGER},
+      basic_share = #{record.basicShare,jdbcType=INTEGER},
+      basic_type = #{record.basicType,jdbcType=VARCHAR},
+      basic_display = #{record.basicDisplay,jdbcType=INTEGER},
+      basic_description = #{record.basicDescription,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByCondition" parameterType="map" >
+    update basic
+    set basic_id = #{record.basicId,jdbcType=INTEGER},
+      basic_title = #{record.basicTitle,jdbcType=VARCHAR},
+      basic_thumbnails = #{record.basicThumbnails,jdbcType=VARCHAR},
+      basic_hit = #{record.basicHit,jdbcType=BIGINT},
+      basic_sort = #{record.basicSort,jdbcType=INTEGER},
+      basic_datetime = #{record.basicDatetime,jdbcType=TIMESTAMP},
+      basic_updatetime = #{record.basicUpdatetime,jdbcType=TIMESTAMP},
+      basic_peopleid = #{record.basicPeopleid,jdbcType=INTEGER},
+      basic_categoryid = #{record.basicCategoryid,jdbcType=INTEGER},
+      basic_appid = #{record.basicAppid,jdbcType=INTEGER},
+      basic_modelid = #{record.basicModelid,jdbcType=INTEGER},
+      basic_comment = #{record.basicComment,jdbcType=INTEGER},
+      basic_collect = #{record.basicCollect,jdbcType=INTEGER},
+      basic_share = #{record.basicShare,jdbcType=INTEGER},
+      basic_type = #{record.basicType,jdbcType=VARCHAR},
+      basic_display = #{record.basicDisplay,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxm.spider.model.BasicVO" >
+    update basic
+    <set >
+      <if test="basicTitle != null" >
+        basic_title = #{basicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="basicThumbnails != null" >
+        basic_thumbnails = #{basicThumbnails,jdbcType=VARCHAR},
+      </if>
+      <if test="basicHit != null" >
+        basic_hit = #{basicHit,jdbcType=BIGINT},
+      </if>
+      <if test="basicSort != null" >
+        basic_sort = #{basicSort,jdbcType=INTEGER},
+      </if>
+      <if test="basicDatetime != null" >
+        basic_datetime = #{basicDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="basicUpdatetime != null" >
+        basic_updatetime = #{basicUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="basicPeopleid != null" >
+        basic_peopleid = #{basicPeopleid,jdbcType=INTEGER},
+      </if>
+      <if test="basicCategoryid != null" >
+        basic_categoryid = #{basicCategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="basicAppid != null" >
+        basic_appid = #{basicAppid,jdbcType=INTEGER},
+      </if>
+      <if test="basicModelid != null" >
+        basic_modelid = #{basicModelid,jdbcType=INTEGER},
+      </if>
+      <if test="basicComment != null" >
+        basic_comment = #{basicComment,jdbcType=INTEGER},
+      </if>
+      <if test="basicCollect != null" >
+        basic_collect = #{basicCollect,jdbcType=INTEGER},
+      </if>
+      <if test="basicShare != null" >
+        basic_share = #{basicShare,jdbcType=INTEGER},
+      </if>
+      <if test="basicType != null" >
+        basic_type = #{basicType,jdbcType=VARCHAR},
+      </if>
+      <if test="basicDisplay != null" >
+        basic_display = #{basicDisplay,jdbcType=INTEGER},
+      </if>
+      <if test="basicDescription != null" >
+        basic_description = #{basicDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where basic_id = #{basicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxm.spider.model.BasicVO" >
+    update basic
+    set basic_title = #{basicTitle,jdbcType=VARCHAR},
+      basic_thumbnails = #{basicThumbnails,jdbcType=VARCHAR},
+      basic_hit = #{basicHit,jdbcType=BIGINT},
+      basic_sort = #{basicSort,jdbcType=INTEGER},
+      basic_datetime = #{basicDatetime,jdbcType=TIMESTAMP},
+      basic_updatetime = #{basicUpdatetime,jdbcType=TIMESTAMP},
+      basic_peopleid = #{basicPeopleid,jdbcType=INTEGER},
+      basic_categoryid = #{basicCategoryid,jdbcType=INTEGER},
+      basic_appid = #{basicAppid,jdbcType=INTEGER},
+      basic_modelid = #{basicModelid,jdbcType=INTEGER},
+      basic_comment = #{basicComment,jdbcType=INTEGER},
+      basic_collect = #{basicCollect,jdbcType=INTEGER},
+      basic_share = #{basicShare,jdbcType=INTEGER},
+      basic_type = #{basicType,jdbcType=VARCHAR},
+      basic_display = #{basicDisplay,jdbcType=INTEGER},
+      basic_description = #{basicDescription,jdbcType=LONGVARCHAR}
+    where basic_id = #{basicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxm.spider.model.BasicVO" >
+    update basic
+    set basic_title = #{basicTitle,jdbcType=VARCHAR},
+      basic_thumbnails = #{basicThumbnails,jdbcType=VARCHAR},
+      basic_hit = #{basicHit,jdbcType=BIGINT},
+      basic_sort = #{basicSort,jdbcType=INTEGER},
+      basic_datetime = #{basicDatetime,jdbcType=TIMESTAMP},
+      basic_updatetime = #{basicUpdatetime,jdbcType=TIMESTAMP},
+      basic_peopleid = #{basicPeopleid,jdbcType=INTEGER},
+      basic_categoryid = #{basicCategoryid,jdbcType=INTEGER},
+      basic_appid = #{basicAppid,jdbcType=INTEGER},
+      basic_modelid = #{basicModelid,jdbcType=INTEGER},
+      basic_comment = #{basicComment,jdbcType=INTEGER},
+      basic_collect = #{basicCollect,jdbcType=INTEGER},
+      basic_share = #{basicShare,jdbcType=INTEGER},
+      basic_type = #{basicType,jdbcType=VARCHAR},
+      basic_display = #{basicDisplay,jdbcType=INTEGER}
+    where basic_id = #{basicId,jdbcType=INTEGER}
+  </update>
+</mapper>
