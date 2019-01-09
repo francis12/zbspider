@@ -96,7 +96,6 @@
     </if>
   </select>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.zxm.spider.model.CmsArticleVOCondition" >
-    <include refid="PAGINATION.MYSQL_paginationStart" />
     select
     <if test="distinct" >
       distinct
@@ -109,7 +108,6 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-    <include refid="PAGINATION.MYSQL_paginationEnd" />
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -130,13 +128,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zxm.spider.model.CmsArticleVO" >
-    <selectKey resultType="java.lang.Integer" keyProperty="articleBasicid" order="AFTER" >
-      SELECT @@IDENTITY
-    </selectKey>
-    insert into cms_article (article_author, article_type, article_source, 
+    insert into cms_article (article_basicid,article_author, article_type, article_source,
       article_url, article_keyword, article_freeorder, 
       article_webid, article_content)
-    values (#{articleAuthor,jdbcType=VARCHAR}, #{articleType,jdbcType=VARCHAR}, #{articleSource,jdbcType=VARCHAR}, 
+    values ( #{articleBasicid,jdbcType=INTEGER},#{articleAuthor,jdbcType=VARCHAR}, #{articleType,jdbcType=VARCHAR}, #{articleSource,jdbcType=VARCHAR},
       #{articleUrl,jdbcType=VARCHAR}, #{articleKeyword,jdbcType=VARCHAR}, #{articleFreeorder,jdbcType=INTEGER}, 
       #{articleWebid,jdbcType=INTEGER}, #{articleContent,jdbcType=LONGVARCHAR})
   </insert>

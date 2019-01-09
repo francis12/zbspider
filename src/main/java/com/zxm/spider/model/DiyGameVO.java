@@ -27,6 +27,32 @@ public class DiyGameVO {
 
     private String linkthree;
 
+    private String linknamea;
+
+    private String linknameb;
+
+    private String linknamec;
+
+    private String linknamed;
+
+    private String linknamee;
+
+    private String linkd;
+
+    private String linke;
+
+    private String scorevisit;
+
+    private String scorehome;
+
+    private String imgone;
+
+    private String imgtwo;
+
+    private String ztlhtml;
+
+    private String ztdhtml;
+
     public Integer getBasicid() {
         return basicid;
     }
@@ -129,5 +155,109 @@ public class DiyGameVO {
 
     public void setLinkthree(String linkthree) {
         this.linkthree = linkthree == null ? null : linkthree.trim();
+    }
+
+    public String getLinknamea() {
+        return linknamea;
+    }
+
+    public void setLinknamea(String linknamea) {
+        this.linknamea = linknamea == null ? null : linknamea.trim();
+    }
+
+    public String getLinknameb() {
+        return linknameb;
+    }
+
+    public void setLinknameb(String linknameb) {
+        this.linknameb = linknameb == null ? null : linknameb.trim();
+    }
+
+    public String getLinknamec() {
+        return linknamec;
+    }
+
+    public void setLinknamec(String linknamec) {
+        this.linknamec = linknamec == null ? null : linknamec.trim();
+    }
+
+    public String getLinknamed() {
+        return linknamed;
+    }
+
+    public void setLinknamed(String linknamed) {
+        this.linknamed = linknamed == null ? null : linknamed.trim();
+    }
+
+    public String getLinknamee() {
+        return linknamee;
+    }
+
+    public void setLinknamee(String linknamee) {
+        this.linknamee = linknamee == null ? null : linknamee.trim();
+    }
+
+    public String getLinkd() {
+        return linkd;
+    }
+
+    public void setLinkd(String linkd) {
+        this.linkd = linkd == null ? null : linkd.trim();
+    }
+
+    public String getLinke() {
+        return linke;
+    }
+
+    public void setLinke(String linke) {
+        this.linke = linke == null ? null : linke.trim();
+    }
+
+    public String getScorevisit() {
+        return scorevisit;
+    }
+
+    public void setScorevisit(String scorevisit) {
+        this.scorevisit = scorevisit == null ? null : scorevisit.trim();
+    }
+
+    public String getScorehome() {
+        return scorehome;
+    }
+
+    public void setScorehome(String scorehome) {
+        this.scorehome = scorehome == null ? null : scorehome.trim();
+    }
+
+    public String getImgone() {
+        return imgone;
+    }
+
+    public void setImgone(String imgone) {
+        this.imgone = imgone == null ? null : imgone.trim();
+    }
+
+    public String getImgtwo() {
+        return imgtwo;
+    }
+
+    public void setImgtwo(String imgtwo) {
+        this.imgtwo = imgtwo == null ? null : imgtwo.trim();
+    }
+
+    public String getZtlhtml() {
+        return ztlhtml;
+    }
+
+    public void setZtlhtml(String ztlhtml) {
+        this.ztlhtml = ztlhtml == null ? null : ztlhtml.trim();
+    }
+
+    public String getZtdhtml() {
+        return ztdhtml;
+    }
+
+    public void setZtdhtml(String ztdhtml) {
+        this.ztdhtml = ztdhtml == null ? null : ztdhtml.trim();
     }
 }

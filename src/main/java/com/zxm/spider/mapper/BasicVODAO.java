@@ -9,8 +9,10 @@ public interface BasicVODAO {
     int countByCondition(BasicVOCondition example);
 
     int deleteByPrimaryKey(Integer basicId);
-
+    int deleteByCondition(BasicVOCondition example);
     int insert(BasicVO record);
+
+    int insertWithReturnBaiscId(BasicVO record);
 
     int insertSelective(BasicVO record);
 

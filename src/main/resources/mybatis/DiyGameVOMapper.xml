@@ -15,6 +15,19 @@
     <result column="linkone" property="linkone" jdbcType="VARCHAR" />
     <result column="linktwo" property="linktwo" jdbcType="VARCHAR" />
     <result column="linkthree" property="linkthree" jdbcType="VARCHAR" />
+    <result column="linknamea" property="linknamea" jdbcType="VARCHAR" />
+    <result column="linknameb" property="linknameb" jdbcType="VARCHAR" />
+    <result column="linknamec" property="linknamec" jdbcType="VARCHAR" />
+    <result column="linknamed" property="linknamed" jdbcType="VARCHAR" />
+    <result column="linknamee" property="linknamee" jdbcType="VARCHAR" />
+    <result column="linkd" property="linkd" jdbcType="VARCHAR" />
+    <result column="linke" property="linke" jdbcType="VARCHAR" />
+    <result column="scorevisit" property="scorevisit" jdbcType="VARCHAR" />
+    <result column="scorehome" property="scorehome" jdbcType="VARCHAR" />
+    <result column="imgone" property="imgone" jdbcType="VARCHAR" />
+    <result column="imgtwo" property="imgtwo" jdbcType="VARCHAR" />
+    <result column="ztlhtml" property="ztlhtml" jdbcType="VARCHAR" />
+    <result column="ztdhtml" property="ztdhtml" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,7 +89,8 @@
   </sql>
   <sql id="Base_Column_List" >
     basicId, host, guest, gametime, gametype, ishot, livetitle, hostpic, guestpic, gamestate, 
-    linkone, linktwo, linkthree
+    linkone, linktwo, linkthree, linknamea, linknameb, linknamec, linknamed, linknamee, 
+    linkd, linke, scorevisit, scorehome, imgone, imgtwo, ztlhtml, ztdhtml
   </sql>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.zxm.spider.model.DiyGameVOCondition" >
     select
@@ -113,12 +127,20 @@
       gametime, gametype, ishot, 
       livetitle, hostpic, guestpic, 
       gamestate, linkone, linktwo, 
-      linkthree)
+      linkthree, linknamea, linknameb, 
+      linknamec, linknamed, linknamee, 
+      linkd, linke, scorevisit, 
+      scorehome, imgone, imgtwo, 
+      ztlhtml, ztdhtml)
     values (#{basicid,jdbcType=INTEGER}, #{host,jdbcType=VARCHAR}, #{guest,jdbcType=VARCHAR}, 
       #{gametime,jdbcType=VARCHAR}, #{gametype,jdbcType=VARCHAR}, #{ishot,jdbcType=VARCHAR}, 
       #{livetitle,jdbcType=VARCHAR}, #{hostpic,jdbcType=VARCHAR}, #{guestpic,jdbcType=VARCHAR}, 
       #{gamestate,jdbcType=VARCHAR}, #{linkone,jdbcType=VARCHAR}, #{linktwo,jdbcType=VARCHAR}, 
-      #{linkthree,jdbcType=VARCHAR})
+      #{linkthree,jdbcType=VARCHAR}, #{linknamea,jdbcType=VARCHAR}, #{linknameb,jdbcType=VARCHAR}, 
+      #{linknamec,jdbcType=VARCHAR}, #{linknamed,jdbcType=VARCHAR}, #{linknamee,jdbcType=VARCHAR}, 
+      #{linkd,jdbcType=VARCHAR}, #{linke,jdbcType=VARCHAR}, #{scorevisit,jdbcType=VARCHAR}, 
+      #{scorehome,jdbcType=VARCHAR}, #{imgone,jdbcType=VARCHAR}, #{imgtwo,jdbcType=VARCHAR}, 
+      #{ztlhtml,jdbcType=VARCHAR}, #{ztdhtml,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zxm.spider.model.DiyGameVO" >
     insert into mdiy_t_game_50
@@ -162,6 +184,45 @@
       <if test="linkthree != null" >
         linkthree,
       </if>
+      <if test="linknamea != null" >
+        linknamea,
+      </if>
+      <if test="linknameb != null" >
+        linknameb,
+      </if>
+      <if test="linknamec != null" >
+        linknamec,
+      </if>
+      <if test="linknamed != null" >
+        linknamed,
+      </if>
+      <if test="linknamee != null" >
+        linknamee,
+      </if>
+      <if test="linkd != null" >
+        linkd,
+      </if>
+      <if test="linke != null" >
+        linke,
+      </if>
+      <if test="scorevisit != null" >
+        scorevisit,
+      </if>
+      <if test="scorehome != null" >
+        scorehome,
+      </if>
+      <if test="imgone != null" >
+        imgone,
+      </if>
+      <if test="imgtwo != null" >
+        imgtwo,
+      </if>
+      <if test="ztlhtml != null" >
+        ztlhtml,
+      </if>
+      <if test="ztdhtml != null" >
+        ztdhtml,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="basicid != null" >
@@ -202,6 +263,45 @@
       </if>
       <if test="linkthree != null" >
         #{linkthree,jdbcType=VARCHAR},
+      </if>
+      <if test="linknamea != null" >
+        #{linknamea,jdbcType=VARCHAR},
+      </if>
+      <if test="linknameb != null" >
+        #{linknameb,jdbcType=VARCHAR},
+      </if>
+      <if test="linknamec != null" >
+        #{linknamec,jdbcType=VARCHAR},
+      </if>
+      <if test="linknamed != null" >
+        #{linknamed,jdbcType=VARCHAR},
+      </if>
+      <if test="linknamee != null" >
+        #{linknamee,jdbcType=VARCHAR},
+      </if>
+      <if test="linkd != null" >
+        #{linkd,jdbcType=VARCHAR},
+      </if>
+      <if test="linke != null" >
+        #{linke,jdbcType=VARCHAR},
+      </if>
+      <if test="scorevisit != null" >
+        #{scorevisit,jdbcType=VARCHAR},
+      </if>
+      <if test="scorehome != null" >
+        #{scorehome,jdbcType=VARCHAR},
+      </if>
+      <if test="imgone != null" >
+        #{imgone,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtwo != null" >
+        #{imgtwo,jdbcType=VARCHAR},
+      </if>
+      <if test="ztlhtml != null" >
+        #{ztlhtml,jdbcType=VARCHAR},
+      </if>
+      <if test="ztdhtml != null" >
+        #{ztdhtml,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -253,6 +353,45 @@
       <if test="record.linkthree != null" >
         linkthree = #{record.linkthree,jdbcType=VARCHAR},
       </if>
+      <if test="record.linknamea != null" >
+        linknamea = #{record.linknamea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linknameb != null" >
+        linknameb = #{record.linknameb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linknamec != null" >
+        linknamec = #{record.linknamec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linknamed != null" >
+        linknamed = #{record.linknamed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linknamee != null" >
+        linknamee = #{record.linknamee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkd != null" >
+        linkd = #{record.linkd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linke != null" >
+        linke = #{record.linke,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scorevisit != null" >
+        scorevisit = #{record.scorevisit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scorehome != null" >
+        scorehome = #{record.scorehome,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgone != null" >
+        imgone = #{record.imgone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgtwo != null" >
+        imgtwo = #{record.imgtwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztlhtml != null" >
+        ztlhtml = #{record.ztlhtml,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztdhtml != null" >
+        ztdhtml = #{record.ztdhtml,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -272,7 +411,20 @@
       gamestate = #{record.gamestate,jdbcType=VARCHAR},
       linkone = #{record.linkone,jdbcType=VARCHAR},
       linktwo = #{record.linktwo,jdbcType=VARCHAR},
-      linkthree = #{record.linkthree,jdbcType=VARCHAR}
+      linkthree = #{record.linkthree,jdbcType=VARCHAR},
+      linknamea = #{record.linknamea,jdbcType=VARCHAR},
+      linknameb = #{record.linknameb,jdbcType=VARCHAR},
+      linknamec = #{record.linknamec,jdbcType=VARCHAR},
+      linknamed = #{record.linknamed,jdbcType=VARCHAR},
+      linknamee = #{record.linknamee,jdbcType=VARCHAR},
+      linkd = #{record.linkd,jdbcType=VARCHAR},
+      linke = #{record.linke,jdbcType=VARCHAR},
+      scorevisit = #{record.scorevisit,jdbcType=VARCHAR},
+      scorehome = #{record.scorehome,jdbcType=VARCHAR},
+      imgone = #{record.imgone,jdbcType=VARCHAR},
+      imgtwo = #{record.imgtwo,jdbcType=VARCHAR},
+      ztlhtml = #{record.ztlhtml,jdbcType=VARCHAR},
+      ztdhtml = #{record.ztdhtml,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -316,6 +468,45 @@
       <if test="linkthree != null" >
         linkthree = #{linkthree,jdbcType=VARCHAR},
       </if>
+      <if test="linknamea != null" >
+        linknamea = #{linknamea,jdbcType=VARCHAR},
+      </if>
+      <if test="linknameb != null" >
+        linknameb = #{linknameb,jdbcType=VARCHAR},
+      </if>
+      <if test="linknamec != null" >
+        linknamec = #{linknamec,jdbcType=VARCHAR},
+      </if>
+      <if test="linknamed != null" >
+        linknamed = #{linknamed,jdbcType=VARCHAR},
+      </if>
+      <if test="linknamee != null" >
+        linknamee = #{linknamee,jdbcType=VARCHAR},
+      </if>
+      <if test="linkd != null" >
+        linkd = #{linkd,jdbcType=VARCHAR},
+      </if>
+      <if test="linke != null" >
+        linke = #{linke,jdbcType=VARCHAR},
+      </if>
+      <if test="scorevisit != null" >
+        scorevisit = #{scorevisit,jdbcType=VARCHAR},
+      </if>
+      <if test="scorehome != null" >
+        scorehome = #{scorehome,jdbcType=VARCHAR},
+      </if>
+      <if test="imgone != null" >
+        imgone = #{imgone,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtwo != null" >
+        imgtwo = #{imgtwo,jdbcType=VARCHAR},
+      </if>
+      <if test="ztlhtml != null" >
+        ztlhtml = #{ztlhtml,jdbcType=VARCHAR},
+      </if>
+      <if test="ztdhtml != null" >
+        ztdhtml = #{ztdhtml,jdbcType=VARCHAR},
+      </if>
     </set>
     where basicId = #{basicid,jdbcType=INTEGER}
   </update>
@@ -332,7 +523,20 @@
       gamestate = #{gamestate,jdbcType=VARCHAR},
       linkone = #{linkone,jdbcType=VARCHAR},
       linktwo = #{linktwo,jdbcType=VARCHAR},
-      linkthree = #{linkthree,jdbcType=VARCHAR}
+      linkthree = #{linkthree,jdbcType=VARCHAR},
+      linknamea = #{linknamea,jdbcType=VARCHAR},
+      linknameb = #{linknameb,jdbcType=VARCHAR},
+      linknamec = #{linknamec,jdbcType=VARCHAR},
+      linknamed = #{linknamed,jdbcType=VARCHAR},
+      linknamee = #{linknamee,jdbcType=VARCHAR},
+      linkd = #{linkd,jdbcType=VARCHAR},
+      linke = #{linke,jdbcType=VARCHAR},
+      scorevisit = #{scorevisit,jdbcType=VARCHAR},
+      scorehome = #{scorehome,jdbcType=VARCHAR},
+      imgone = #{imgone,jdbcType=VARCHAR},
+      imgtwo = #{imgtwo,jdbcType=VARCHAR},
+      ztlhtml = #{ztlhtml,jdbcType=VARCHAR},
+      ztdhtml = #{ztdhtml,jdbcType=VARCHAR}
     where basicId = #{basicid,jdbcType=INTEGER}
   </update>
 </mapper>

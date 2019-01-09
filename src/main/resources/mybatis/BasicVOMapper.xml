@@ -105,7 +105,6 @@
     </if>
   </select>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.zxm.spider.model.BasicVOCondition" >
-    <include refid="PAGINATION.MYSQL_paginationStart" />
     select
     <if test="distinct" >
       distinct
@@ -118,7 +117,6 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-    <include refid="PAGINATION.MYSQL_paginationEnd" />
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -132,6 +130,29 @@
     delete from basic
     where basic_id = #{basicId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByCondition" parameterType="java.lang.Integer" >
+    delete from basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+
+  <insert id="insertWithReturnBaiscId" parameterType="com.zxm.spider.model.BasicVO"  useGeneratedKeys="true"
+          keyColumn="basic_id" keyProperty="basicId">
+    insert into basic (basic_title, basic_thumbnails, basic_hit,
+    basic_sort, basic_datetime, basic_updatetime,
+    basic_peopleid, basic_categoryid, basic_appid,
+    basic_modelid, basic_comment, basic_collect,
+    basic_share, basic_type, basic_display,
+    basic_description)
+    values (#{basicTitle,jdbcType=VARCHAR}, #{basicThumbnails,jdbcType=VARCHAR}, #{basicHit,jdbcType=BIGINT},
+    #{basicSort,jdbcType=INTEGER}, #{basicDatetime,jdbcType=TIMESTAMP}, #{basicUpdatetime,jdbcType=TIMESTAMP},
+    #{basicPeopleid,jdbcType=INTEGER}, #{basicCategoryid,jdbcType=INTEGER}, #{basicAppid,jdbcType=INTEGER},
+    #{basicModelid,jdbcType=INTEGER}, #{basicComment,jdbcType=INTEGER}, #{basicCollect,jdbcType=INTEGER},
+    #{basicShare,jdbcType=INTEGER}, #{basicType,jdbcType=VARCHAR}, #{basicDisplay,jdbcType=INTEGER},
+    #{basicDescription,jdbcType=LONGVARCHAR})
+  </insert>
+
   <insert id="insert" parameterType="com.zxm.spider.model.BasicVO" >
     <selectKey resultType="java.lang.Integer" keyProperty="basicId" order="AFTER" >
       SELECT @@IDENTITY

@@ -1,10 +1,9 @@
 package com.zxm.spider.model;
 
-import com.netfinworks.restx.persist.jdbc.QueryConditionBase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CmsArticleVOCondition extends QueryConditionBase {
+public class CmsArticleVOCondition  {
     protected String orderByClause;
 
     protected boolean distinct;

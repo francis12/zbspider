@@ -1,4 +1,4 @@
-package us.codecraft.webmagic.samples;
+package com.zxm.spider.zbspider;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -37,9 +37,13 @@ public class HuabanProcessor implements PageProcessor {
     }
 
     public static void main(String[] args) {
+
+        System.getProperties().setProperty("selenuim_config",
+                "D:\\workspace\\self\\webmagic\\webmagic-selenium\\config.ini");
+
         Spider.create(new HuabanProcessor()).thread(5)
                 .addPipeline(new FilePipeline("/data/webmagic/test/"))
-                .setDownloader(new SeleniumDownloader("/Users/yihua/Downloads/chromedriver"))
+                .setDownloader(new SeleniumDownloader())
                 .addUrl("http://huaban.com/")
                 .runAsync();
     }

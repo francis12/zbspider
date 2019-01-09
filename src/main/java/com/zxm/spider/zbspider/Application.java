@@ -1,6 +1,8 @@
 package com.zxm.spider.zbspider;
 
+import com.zxm.spider.constants.BaseConstants;
 import com.zxm.spider.mapper.DiyGameVODAO;
+import com.zxm.spider.service.ArticleService;
 import com.zxm.spider.webmagic.LeqiubaProcessor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
@@ -66,12 +68,13 @@ public class Application {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 
         DiyGameVODAO diyGameVODAO = (DiyGameVODAO)context.getBean("diyGameVODAO");
-
         LeqiubaProcessor leqiubaProcessor = (LeqiubaProcessor)context.getBean("leqiubaProcessor");
+        ArticleService articleService = (ArticleService)context.getBean("articleService");
 
 
         Runnable tcPrizeSchedule = new Runnable() {
             public void run() {
+                articleService.deleteArticlesFromCategorys(BaseConstants.categoryIds);
                 leqiubaProcessor.generate();
             }
         };
@@ -79,7 +82,7 @@ public class Application {
                 .newSingleThreadScheduledExecutor();
 
         // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
-        service.scheduleAtFixedRate(tcPrizeSchedule, 1, 1200, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(tcPrizeSchedule, 1, 6*60, TimeUnit.SECONDS);
 
         logger.info("SpringBoot Start Success!");
     }
