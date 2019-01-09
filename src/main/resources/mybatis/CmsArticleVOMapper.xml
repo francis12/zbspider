@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxm.spider.mapper.CmsArticleVODAO" >
+  <resultMap id="BaseResultMap" type="com.zxm.spider.model.CmsArticleVO" >
+    <id column="article_basicid" property="articleBasicid" jdbcType="INTEGER" />
+    <result column="article_author" property="articleAuthor" jdbcType="VARCHAR" />
+    <result column="article_type" property="articleType" jdbcType="VARCHAR" />
+    <result column="article_source" property="articleSource" jdbcType="VARCHAR" />
+    <result column="article_url" property="articleUrl" jdbcType="VARCHAR" />
+    <result column="article_keyword" property="articleKeyword" jdbcType="VARCHAR" />
+    <result column="article_freeorder" property="articleFreeorder" jdbcType="INTEGER" />
+    <result column="article_webid" property="articleWebid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zxm.spider.model.CmsArticleVO" extends="BaseResultMap" >
+    <result column="article_content" property="articleContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    article_basicid, article_author, article_type, article_source, article_url, article_keyword, 
+    article_freeorder, article_webid
+  </sql>
+  <sql id="Blob_Column_List" >
+    article_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zxm.spider.model.CmsArticleVOCondition" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.zxm.spider.model.CmsArticleVOCondition" >
+    <include refid="PAGINATION.MYSQL_paginationStart" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="PAGINATION.MYSQL_paginationEnd" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cms_article
+    where article_basicid = #{articleBasicid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cms_article
+    where article_basicid = #{articleBasicid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByCondition" parameterType="com.zxm.spider.model.CmsArticleVOCondition" >
+    delete from cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zxm.spider.model.CmsArticleVO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="articleBasicid" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into cms_article (article_author, article_type, article_source, 
+      article_url, article_keyword, article_freeorder, 
+      article_webid, article_content)
+    values (#{articleAuthor,jdbcType=VARCHAR}, #{articleType,jdbcType=VARCHAR}, #{articleSource,jdbcType=VARCHAR}, 
+      #{articleUrl,jdbcType=VARCHAR}, #{articleKeyword,jdbcType=VARCHAR}, #{articleFreeorder,jdbcType=INTEGER}, 
+      #{articleWebid,jdbcType=INTEGER}, #{articleContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxm.spider.model.CmsArticleVO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="articleBasicid" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into cms_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articleAuthor != null" >
+        article_author,
+      </if>
+      <if test="articleType != null" >
+        article_type,
+      </if>
+      <if test="articleSource != null" >
+        article_source,
+      </if>
+      <if test="articleUrl != null" >
+        article_url,
+      </if>
+      <if test="articleKeyword != null" >
+        article_keyword,
+      </if>
+      <if test="articleFreeorder != null" >
+        article_freeorder,
+      </if>
+      <if test="articleWebid != null" >
+        article_webid,
+      </if>
+      <if test="articleContent != null" >
+        article_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articleAuthor != null" >
+        #{articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="articleType != null" >
+        #{articleType,jdbcType=VARCHAR},
+      </if>
+      <if test="articleSource != null" >
+        #{articleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="articleUrl != null" >
+        #{articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="articleKeyword != null" >
+        #{articleKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="articleFreeorder != null" >
+        #{articleFreeorder,jdbcType=INTEGER},
+      </if>
+      <if test="articleWebid != null" >
+        #{articleWebid,jdbcType=INTEGER},
+      </if>
+      <if test="articleContent != null" >
+        #{articleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByCondition" parameterType="com.zxm.spider.model.CmsArticleVOCondition" resultType="java.lang.Integer" >
+    select count(*) from cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByConditionSelective" parameterType="map" >
+    update cms_article
+    <set >
+      <if test="record.articleBasicid != null" >
+        article_basicid = #{record.articleBasicid,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleAuthor != null" >
+        article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleType != null" >
+        article_type = #{record.articleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleSource != null" >
+        article_source = #{record.articleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleUrl != null" >
+        article_url = #{record.articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleKeyword != null" >
+        article_keyword = #{record.articleKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleFreeorder != null" >
+        article_freeorder = #{record.articleFreeorder,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleWebid != null" >
+        article_webid = #{record.articleWebid,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleContent != null" >
+        article_content = #{record.articleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update cms_article
+    set article_basicid = #{record.articleBasicid,jdbcType=INTEGER},
+      article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      article_type = #{record.articleType,jdbcType=VARCHAR},
+      article_source = #{record.articleSource,jdbcType=VARCHAR},
+      article_url = #{record.articleUrl,jdbcType=VARCHAR},
+      article_keyword = #{record.articleKeyword,jdbcType=VARCHAR},
+      article_freeorder = #{record.articleFreeorder,jdbcType=INTEGER},
+      article_webid = #{record.articleWebid,jdbcType=INTEGER},
+      article_content = #{record.articleContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByCondition" parameterType="map" >
+    update cms_article
+    set article_basicid = #{record.articleBasicid,jdbcType=INTEGER},
+      article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      article_type = #{record.articleType,jdbcType=VARCHAR},
+      article_source = #{record.articleSource,jdbcType=VARCHAR},
+      article_url = #{record.articleUrl,jdbcType=VARCHAR},
+      article_keyword = #{record.articleKeyword,jdbcType=VARCHAR},
+      article_freeorder = #{record.articleFreeorder,jdbcType=INTEGER},
+      article_webid = #{record.articleWebid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxm.spider.model.CmsArticleVO" >
+    update cms_article
+    <set >
+      <if test="articleAuthor != null" >
+        article_author = #{articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="articleType != null" >
+        article_type = #{articleType,jdbcType=VARCHAR},
+      </if>
+      <if test="articleSource != null" >
+        article_source = #{articleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="articleUrl != null" >
+        article_url = #{articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="articleKeyword != null" >
+        article_keyword = #{articleKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="articleFreeorder != null" >
+        article_freeorder = #{articleFreeorder,jdbcType=INTEGER},
+      </if>
+      <if test="articleWebid != null" >
+        article_webid = #{articleWebid,jdbcType=INTEGER},
+      </if>
+      <if test="articleContent != null" >
+        article_content = #{articleContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where article_basicid = #{articleBasicid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zxm.spider.model.CmsArticleVO" >
+    update cms_article
+    set article_author = #{articleAuthor,jdbcType=VARCHAR},
+      article_type = #{articleType,jdbcType=VARCHAR},
+      article_source = #{articleSource,jdbcType=VARCHAR},
+      article_url = #{articleUrl,jdbcType=VARCHAR},
+      article_keyword = #{articleKeyword,jdbcType=VARCHAR},
+      article_freeorder = #{articleFreeorder,jdbcType=INTEGER},
+      article_webid = #{articleWebid,jdbcType=INTEGER},
+      article_content = #{articleContent,jdbcType=LONGVARCHAR}
+    where article_basicid = #{articleBasicid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxm.spider.model.CmsArticleVO" >
+    update cms_article
+    set article_author = #{articleAuthor,jdbcType=VARCHAR},
+      article_type = #{articleType,jdbcType=VARCHAR},
+      article_source = #{articleSource,jdbcType=VARCHAR},
+      article_url = #{articleUrl,jdbcType=VARCHAR},
+      article_keyword = #{articleKeyword,jdbcType=VARCHAR},
+      article_freeorder = #{articleFreeorder,jdbcType=INTEGER},
+      article_webid = #{articleWebid,jdbcType=INTEGER}
+    where article_basicid = #{articleBasicid,jdbcType=INTEGER}
+  </update>
+</mapper>
